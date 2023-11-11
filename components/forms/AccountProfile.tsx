@@ -17,6 +17,7 @@ import * as z from 'zod';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
+import { useUploadThing } from '@/lib/validations/uploadthing';
 
 interface Props {
   user: {
@@ -31,17 +32,18 @@ interface Props {
 }
 
 const AccountProfile = ({  user, btnTitle }: Props) => {
+
     const form = useForm  ({
       resolver: zodResolver(UserValidation),
       defaultValues: {
         name: user?.name || '',
         username: user?.username || '',
         email: user?.email || '',
-        bio: user.bio || ''
+        bio: user?.bio || ''
       }
     })
   
-function onSubmit(values: z.infer<typeof UserValidation>) {
+const onSubmit = async (values: z.infer<typeof UserValidation>) => {
   console.log(values)
 }
 
