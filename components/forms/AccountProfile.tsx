@@ -18,6 +18,10 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
 import { useUploadThing } from '@/lib/validations/uploadthing';
+import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { updateUser } from '@/lib/actions/user.actions';
+import { useEffect, useState } from 'react';
 
 interface Props {
   user: {
@@ -32,6 +36,14 @@ interface Props {
 }
 
 const AccountProfile = ({  user, btnTitle }: Props) => {
+  const [isClient, setIsClient] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
 
     const form = useForm  ({
       resolver: zodResolver(UserValidation),
@@ -44,8 +56,23 @@ const AccountProfile = ({  user, btnTitle }: Props) => {
     })
   
 const onSubmit = async (values: z.infer<typeof UserValidation>) => {
-  console.log(values)
+  await updateUser({
+    userId:  user.id,
+    username:    values.username,
+    name:    values.name,
+    email:    values.email,   
+    bio:    values.bio,
+    path:    pathname
+  }
+ )
+ if(pathname === '/profile/edit'){
+  router.back();
+
+ } else {
+  router.push('/');
+};
 }
+
 
   
 return (
@@ -143,4 +170,4 @@ return (
 
 }
 
-export default AccountProfile
+export default AccountProfile 
