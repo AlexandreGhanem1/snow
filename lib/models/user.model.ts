@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+
 const userSchema = new mongoose.Schema({
   id: {
     type: String,
@@ -19,12 +20,7 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   bio: String,
-  maps: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Map",
-    },
-  ],
+
   onboarded: {
     type: Boolean,
     default: false,
@@ -32,5 +28,6 @@ const userSchema = new mongoose.Schema({
 });
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);
+
 
 export default User;
