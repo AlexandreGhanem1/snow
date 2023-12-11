@@ -26,7 +26,6 @@ import { updateUser } from "@/lib/actions/user.actions"
 interface Props {
   user: {
     id: string,
-
     username: string,
     name: string,
     email: string,
@@ -60,16 +59,15 @@ const AccountProfile = ({  user, btnTitle }: Props) => {
 
 const onSubmit = async (values: z.infer<typeof UserValidation>) => {
 
-    await updateUser({
-      userId: user.id,
-      username: values.username,
-      name: values.name,
-      email: values.email,
-      bio: values.bio,
-      path: pathname,
-      onboarded: true,
-      
-    });
+  await updateUser({
+    userId: user.id,
+    username: values.username,
+    name: values.name,
+    path: pathname || '', // Provide a default value
+    email: values.email,
+    bio: values.bio,
+    onboarded: true,
+  });
 
     if (pathname === "/profile/edit") {
       router.back();
