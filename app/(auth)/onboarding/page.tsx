@@ -17,7 +17,6 @@ async function Page() {
         
         username: userInfo ? userInfo?.username : user.username || "",
         name: userInfo ? userInfo?.name : user.firstName ?? "",
-        email: userInfo ? userInfo.email : (user?.emailAddresses[0] ? user?.emailAddresses[0].toString() : ""), 
         bio: userInfo ? userInfo?.bio : "",
         onboarded: userInfo ? userInfo?.onboarded : false,
 

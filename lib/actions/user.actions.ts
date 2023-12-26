@@ -19,7 +19,6 @@ interface Params {
     userId: string;
     username: string;
     name: string;
-    email: string;
     bio: string;
     path: string;
     onboarded: boolean;
@@ -30,7 +29,6 @@ export async function updateUser({
     userId,
     username,
     name,
-    email,
     bio,
     path,
 }: Params
@@ -42,7 +40,6 @@ export async function updateUser({
             username: username.toLowerCase(),
             name,
             bio,
-            email,
             onboarded: true,
         },
         { upsert: true }
